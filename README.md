@@ -15,3 +15,8 @@
 ``Multi-Language-RTVC`` stands for Multi-Language Real Time Voice Cloning and is a Voice Cloning Tool capable
 of transfering speaker-specific audio features to synthesize speeches in that voice based on just a few
 seconds of unknown audio data.
+
+## License
+
+This code is licensed under ``MIT``. For more information regarding the license model or
+associated duties and rights, click [here](LICENSE).
