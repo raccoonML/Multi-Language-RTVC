@@ -24,3 +24,22 @@ associated duties and rights, click [here](LICENSE).
 This project was started in 2021 with the goal of inheriting Corentin Jemine's [``Real-Time-Voice-Cloning``](https://github.com/CorentinJ/Real-Time-Voice-Cloning).
 The project originated from the wish of multi-language support for voice cloning models and is now
 maintained and enhanced by contributing volunteers.
+
+## Contributing
+
+We welcome all those interested in the project, from beginners to experts. The MLRTVC community standard is
+a nice, open-minded and efficient working climate. We encourage all those with ideas to take part in the
+project by sharing their thoughts.  
+There are multiple meaningful ways of contributing:
+
+- Developing code (new features, fixes, enhancements)
+- Writing documentation
+- Raising issues (bugs, feature requests, enhancement proposals, code refacturing, etc.)
+- Providing pre-trained models
+- Participating in community tasks (code reviews, discussions, maintenance, etc.)
+
+For transparacy reasons, we ask you to engage with this project via the official ways (issues, pull requests)
+to share knowledge and questions publicly. Only in cases where privacy or confidentiality is of great importance,
+other communication channels are accepted (email, chat, etc.).
+
+Further information can be gained in the [``Contributing Guidelines``](CONTRIBUTING.md).
