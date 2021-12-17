@@ -20,3 +20,9 @@ seconds of unknown audio data.
 
 This code is licensed under ``MIT``. For more information regarding the license model or
 associated duties and rights, click [here](LICENSE).
+
+## Project History
+
+This project was started in 2021 with the goal of inheriting Corentin Jemine's [``Real-Time-Voice-Cloning``](https://github.com/CorentinJ/Real-Time-Voice-Cloning).
+The project originated from the wish of multi-language support for voice cloning models and is now
+maintained and enhanced by contributing volunteers.
