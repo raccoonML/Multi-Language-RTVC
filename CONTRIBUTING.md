@@ -33,7 +33,7 @@ essential rules:
 1. Keep your code as short as possible but as long as necessary.
 2. Keep the code simple and clean, no links, statements or advertisement.
 3. Comment your code both single-line and docstring-wise.
-4. Follow the [``Module template``](code_templates/module_template.md) to write a
+4. Follow the [``Module template``](code_templates/module_template.py) to write a
 clean and simple module/script with required head information.
 5. All code is formatted using [``Black``](https://pypi.org/project/black/).
 
