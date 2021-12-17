@@ -66,3 +66,8 @@ Features are requested by opening issues. Good feature requests contain
 - The current state of the code
 - The desired future state of the code
 - Reasons why this can't be achieved otherwise
+
+## Issue templates
+
+Take a look at these [Issue Templates](issue_templates) for issue templates to get an idea of what issues should
+look like to be readable.
