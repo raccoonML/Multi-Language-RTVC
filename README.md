@@ -8,7 +8,7 @@
 ![GitHub](https://img.shields.io/github/languages/top/sveneschlbeck/Multi-Language-RTVC?color=pink)
 *****
 
-[MLRTVC logo](img/MLRTVC_readme.png)
+![MLRTVC logo](img/MLRTVC_readme.png)
 
 ## Project description
 
