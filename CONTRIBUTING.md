@@ -25,6 +25,41 @@ To contribute code to this repository, please follow these rules:
 3. If you've changed APIs, update the documentation.
 4. Make sure your code meets the quality standards.
 
+### Quality standards
+
+To make the code easy to read, maintainable and understandable for everyone, follow these
+essential rules:
+
+1. Keep your code as short as possible but as long as necessary.
+2. Keep the code simple and clean, no links, statements or advertisement.
+3. Comment your code both single-line and docstring-wise.
+4. Follow the [``Module template``](code_templates/module_template.md) to write a
+clean and simple module/script with required head information.
+5. All code is formatted using [``Black``](https://pypi.org/project/black/).
+
+#### Black format
+
+``Black`` is a Python code formatter replacing time-consuming hand-formatting.
+It is used as this project's default style.
+
+To install ``Black``, run
+
+```python
+pip install black
+```
+
+To format a file in Black-style, run
+
+```python
+black PATH_TO_FILE
+```
+
+To format a directory with all its files, run
+
+```python
+black PATH_TO_DIR
+```
+
 Follow these steps to push code to this repository:
 
 1. Fork the project repository.
