@@ -48,4 +48,8 @@ Further information can be gained in the [``Contributing Guidelines``](CONTRIBUT
 
 ### Documentation
 
-- FAQ: [https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/Frequently-Asked-Questions-(FAQ)]
+- FAQ: https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/Frequently-Asked-Questions-(FAQ)
+
+### Communication
+
+- Stack Overflow: https://stackoverflow.com/questions/tagged/mlrtvc
