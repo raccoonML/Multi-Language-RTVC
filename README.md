@@ -44,6 +44,11 @@ other communication channels are accepted (email, chat, etc.).
 
 Further information can be gained in the [``Contributing Guidelines``](CONTRIBUTING.md).
 
+## Code of Conduct
+
+Working together on this project, we share and defend certain values which are indispensable
+for an Open Source project like ``MLRTVC``. For further information see [here](https://github.com/sveneschlbeck/Multi-Language-RTVC/blob/main/CODE_OF_CONDUCT.md).
+
 ## Help & Support
 
 ### Documentation
