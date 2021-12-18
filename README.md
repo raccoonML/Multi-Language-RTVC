@@ -43,3 +43,9 @@ to share knowledge and questions publicly. Only in cases where privacy or confid
 other communication channels are accepted (email, chat, etc.).
 
 Further information can be gained in the [``Contributing Guidelines``](CONTRIBUTING.md).
+
+## Help & Support
+
+### Documentation
+
+- FAQ: [https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/Frequently-Asked-Questions-(FAQ)]
