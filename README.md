@@ -53,3 +53,4 @@ Further information can be gained in the [``Contributing Guidelines``](CONTRIBUT
 ### Communication
 
 - Stack Overflow: https://stackoverflow.com/questions/tagged/mlrtvc
+- GitHub Discussions: https://github.com/sveneschlbeck/Multi-Language-RTVC/discussions
