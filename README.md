@@ -5,7 +5,6 @@
 ![GitHub](https://img.shields.io/github/issues-pr/sveneschlbeck/Multi-Language-RTVC?color=orange)
 ![GitHub](https://img.shields.io/github/stars/sveneschlbeck/Multi-Language-RTVC?style=social)
 ![GitHub](https://img.shields.io/badge/License-MIT-brown.svg)
-![GitHub](https://img.shields.io/github/languages/top/sveneschlbeck/Multi-Language-RTVC?color=pink)
 *****
 
 ![MLRTVC logo](img/MLRTVC_readme.png)
