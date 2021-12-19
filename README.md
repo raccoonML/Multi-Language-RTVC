@@ -4,6 +4,11 @@
 ![GitHub](https://img.shields.io/github/issues/sveneschlbeck/Multi-Language-RTVC)
 ![GitHub](https://img.shields.io/github/issues-pr/sveneschlbeck/Multi-Language-RTVC?color=orange)
 ![GitHub](https://img.shields.io/github/stars/sveneschlbeck/Multi-Language-RTVC?style=social)
+![GitHub](https://img.shields.io/github/forks/sveneschlbeck/Multi-Language-RTVC?style=social)
+![GitHub](https://img.shields.io/github/repo-size/sveneschlbeck/Multi-Language-RTVC)
+![GitHub](https://img.shields.io/tokei/lines/github/sveneschlbeck/Multi-Language-RTVC)
+![GitHub](https://img.shields.io/github/contributors/sveneschlbeck/Multi-Language-RTVC)
+![GitHub](https://img.shields.io/badge/Since-2021-brightgreen)
 ![GitHub](https://img.shields.io/badge/License-MIT-brown.svg)
 *****
 
