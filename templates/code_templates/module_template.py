@@ -11,12 +11,8 @@ in this case the intial characterization of a person.
 # Author: Sven Eschlbeck <sven.eschlbeck@t-online.de>
 # License: MIT
 
+# Simple person-creating class
 class Person:
-  """
-  Initializes a person with name
-  and age.
-  """
-  
   def __init__(self, name, age):
     """
     Receives name and age as
