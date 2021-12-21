@@ -16,6 +16,7 @@ class Person:
   Initializes a person with name
   and age.
   """
+  
   def __init__(self, name, age):
     """
     Receives name and age as
