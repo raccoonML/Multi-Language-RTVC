@@ -13,13 +13,14 @@ in this case the intial characterization of a person.
 
 # Simple person-creating class
 class Person:
-  def __init__(self, name, age):
-    """
-    Receives name and age as
-    parameters.
-    """
-    self.name = name
-    self.age = age
+    def __init__(self, name, age):
+        """
+        Receives name and age as
+        parameters.
+        """
+        self.name = name
+        self.age = age
+
 
 p1 = Person("John", 36)
 
