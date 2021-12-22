@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2021 [Sven Eschlbeck](https://github.com/sveneschlbeck), [raccoonML](https://github.com/raccoonML), [Corentin Jemine](https://github.com/CorentinJ), [Rayhane Mama](https://github.com/Rayhane-mamah), [fatchord](https://github.com/fatchord), [braindead](https://github.com/braindead)
+Copyright (c) 2021 [Sven Eschlbeck](https://github.com/sveneschlbeck), [Corentin Jemine](https://github.com/CorentinJ), [Rayhane Mama](https://github.com/Rayhane-mamah), [fatchord](https://github.com/fatchord), [braindead](https://github.com/braindead)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
