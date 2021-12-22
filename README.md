@@ -71,6 +71,7 @@ behind ``MLRTVC``:
 
 ### Documentation
 
+- Theory behind ``MLRTVC``: https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/Theory
 - FAQ: https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/Frequently-Asked-Questions-(FAQ)
 
 ### Communication
