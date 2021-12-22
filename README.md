@@ -10,6 +10,7 @@
 ![GitHub](https://img.shields.io/github/contributors/sveneschlbeck/Multi-Language-RTVC)
 ![GitHub](https://img.shields.io/badge/Since-2021-brightgreen)
 ![GitHub](https://img.shields.io/badge/License-MIT-brown.svg)
+![GitHub](https://img.shields.io/github/workflow/status/sveneschlbeck/Multi-Language-RTVC/Lint)
 *****
 
 ![MLRTVC logo](img/MLRTVC_readme.png)
