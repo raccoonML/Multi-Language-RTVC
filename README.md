@@ -27,7 +27,7 @@ associated duties and rights, click [here](LICENSE).
 
 This project was started in 2021 with the goal of inheriting Corentin Jemine's [``Real-Time-Voice-Cloning``](https://github.com/CorentinJ/Real-Time-Voice-Cloning).
 The project originated from the wish of multi-language support for voice cloning models and is now
-maintained and enhanced by contributing volunteers.
+maintained and enhanced by contributing volunteers. Visit the [``About us``](https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/About-us) section to learn more about the team behind ``MLRTVC``.
 
 ## Contributing
 
