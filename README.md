@@ -59,6 +59,7 @@ for an Open Source project like ``MLRTVC``. For further information see [here](h
 
 ### Documentation
 
+- About us: https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/About-us
 - Theory behind ``MLRTVC``: https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/Theory
 - FAQ: https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/Frequently-Asked-Questions-(FAQ)
 
