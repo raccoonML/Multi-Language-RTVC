@@ -1,7 +1,7 @@
 from pathlib import Path
-from toolbox import Toolbox
-from utils.argutils import print_args
-from utils.modelutils import check_model_paths
+from core.toolbox import Toolbox
+from core.utils.argutils import print_args
+from core.utils.modelutils import check_model_paths
 import argparse
 import os
 

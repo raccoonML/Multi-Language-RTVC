@@ -1,7 +1,7 @@
 from torch.utils.data import Dataset
 from pathlib import Path
-from vocoder import audio
-import vocoder.hparams as hp
+from core.vocoder import audio
+import core.vocoder.hparams as hp
 import numpy as np
 import torch
 

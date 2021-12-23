@@ -1,10 +1,10 @@
 import torch
 from torch.utils.data import DataLoader
-from synthesizer.hparams import hparams_debug_string
-from synthesizer.synthesizer_dataset import SynthesizerDataset, collate_synthesizer
-from synthesizer.models.tacotron import Tacotron
-from synthesizer.utils.text import text_to_sequence
-from synthesizer.utils.symbols import symbols
+from core.synthesizer.hparams import hparams_debug_string
+from core.synthesizer.synthesizer_dataset import SynthesizerDataset, collate_synthesizer
+from core.synthesizer.models.tacotron import Tacotron
+from core.synthesizer.utils.text import text_to_sequence
+from core.synthesizer.utils.symbols import symbols
 import numpy as np
 from pathlib import Path
 from tqdm import tqdm

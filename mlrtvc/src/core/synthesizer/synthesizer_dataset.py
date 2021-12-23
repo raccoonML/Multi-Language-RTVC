@@ -2,7 +2,7 @@ import torch
 from torch.utils.data import Dataset
 import numpy as np
 from pathlib import Path
-from synthesizer.utils.text import text_to_sequence
+from core.synthesizer.utils.text import text_to_sequence
 
 
 class SynthesizerDataset(Dataset):

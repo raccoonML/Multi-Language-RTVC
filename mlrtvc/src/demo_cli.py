@@ -1,9 +1,9 @@
-from encoder.params_model import model_embedding_size as speaker_embedding_size
-from utils.argutils import print_args
-from utils.modelutils import check_model_paths
-from synthesizer.inference import Synthesizer
-from encoder import inference as encoder
-from vocoder import inference as vocoder
+from core.encoder.params_model import model_embedding_size as speaker_embedding_size
+from core.utils.argutils import print_args
+from core.utils.modelutils import check_model_paths
+from core.synthesizer.inference import Synthesizer
+from core.encoder import inference as encoder
+from core.vocoder import inference as vocoder
 from pathlib import Path
 import numpy as np
 import soundfile as sf
