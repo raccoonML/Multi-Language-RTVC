@@ -102,6 +102,36 @@ Features are requested by opening issues. Good feature requests contain
 - The desired future state of the code
 - Reasons why this can't be achieved otherwise
 
+## Providing trained models
+
+Providing trained models is a good way of support developers or engineers who are in need of models
+that can be immediately used, without having to go through the time-consuming training process. To ensure
+the uniformity of trained models in the repository, please follow these steps:
+
+1. Navigate to the directory [``mlrtvc/saved_models``](mlrtvc/saved_models).
+2. Choose the directory fitting your model language.
+3. Save the model under the name ``<model_author_date_version>`` like e.g. ``model_sveneschlbeck_01012022_v1``.
+4. Follow the structure given described [here](templates/saved_models_templates) to structure your model
+in the following way:
+```
+<model_author_date_version>
+  - encoder
+    - encoder.pt
+    - training outputs
+      - [model backups]
+      - [visualizations]
+  - synthesizer
+    - synthesizer.pt
+    - training_outputs
+      - [model backups]
+      - [samples]
+  - vocoder
+    - vocoder.pt
+    - training_outputs
+      - [model backups]
+      - [samples]
+```
+
 ## Issue templates
 
 Take a look at these [``Issue Templates``](templates/issue_templates) for issue templates to get an idea of what issues should

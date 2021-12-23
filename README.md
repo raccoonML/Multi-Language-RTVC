@@ -10,6 +10,8 @@
 ![GitHub](https://img.shields.io/github/contributors/sveneschlbeck/Multi-Language-RTVC)
 ![GitHub](https://img.shields.io/badge/Since-2021-brightgreen)
 ![GitHub](https://img.shields.io/badge/License-MIT-brown.svg)
+![GitHub](https://img.shields.io/github/workflow/status/sveneschlbeck/Multi-Language-RTVC/Lint)
+![GitHub](https://img.shields.io/badge/code%20style-black-black)
 *****
 
 ![MLRTVC logo](img/MLRTVC_readme.png)
@@ -27,7 +29,7 @@ associated duties and rights, click [here](LICENSE).
 
 This project was started in 2021 with the goal of inheriting Corentin Jemine's [``Real-Time-Voice-Cloning``](https://github.com/CorentinJ/Real-Time-Voice-Cloning).
 The project originated from the wish of multi-language support for voice cloning models and is now
-maintained and enhanced by contributing volunteers.
+maintained and enhanced by contributing volunteers. Visit the [``About us``](https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/About-us) section to learn more about the team behind ``MLRTVC``.
 
 ## Contributing
 
@@ -53,24 +55,11 @@ Further information can be gained in the [``Contributing Guidelines``](CONTRIBUT
 Working together on this project, we share and defend certain values which are indispensable
 for an Open Source project like ``MLRTVC``. For further information see [here](https://github.com/sveneschlbeck/Multi-Language-RTVC/blob/main/CODE_OF_CONDUCT.md).
 
-## Theoretical Foundations
-
-The applications in this repository are based on work done by different Computer Science and
-Audio Engineering researches from the fields of Speaker Recognition, Audio Feature Extraction
-and Data Processing. The following research papers contain deeper information on the theory
-behind ``MLRTVC``:
-
-| ``arxiv`` URL | Designation | Paper Title | Code Implementation |
-| --- | ----------- | ----- | --------------------- |
-|[Download](https://arxiv.org/pdf/1806.04558.pdf) | SV2TTS | Transfer Learning from Speaker Verification to Multispeaker Text-To-Speech Synthesis | [``RTVC``](https://github.com/CorentinJ/Real-Time-Voice-Cloning) |
-|[Download](https://arxiv.org/pdf/1710.10467.pdf) | GE2E | Generalized End-To-End Loss for Speaker Verification | [``RTVC``](https://github.com/CorentinJ/Real-Time-Voice-Cloning) |
-|[Download](https://arxiv.org/pdf/1802.08435.pdf) | WaveRNN | Efficient Neural Audio Synthesis | [``WaveRNN``](https://github.com/fatchord/WaveRNN) |
-|[Download](https://arxiv.org/pdf/1703.10135.pdf) | Tacotron | Tacotron: Towards End-to-End Speech Synthesis | [``WaveRNN``](https://github.com/fatchord/WaveRNN)
-
 ## Help & Support
 
 ### Documentation
 
+- Theory behind ``MLRTVC``: https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/Theory
 - FAQ: https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/Frequently-Asked-Questions-(FAQ)
 
 ### Communication
