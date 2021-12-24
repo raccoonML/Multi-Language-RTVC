@@ -7,14 +7,14 @@ from torch.utils.data import DataLoader
 from pathlib import Path
 from torch import optim
 import torch.nn.functional as F
-import vocoder.hparams as hp
+import core.vocoder.hparams as hp
 import numpy as np
 import time
 import torch
 import platform
 
-def train(run_id: str, syn_dir: Path, voc_dir: Path, models_dir: Path, ground_truth: bool,
-          save_every: int, backup_every: int, force_restart: bool):
+def train(run_id: str, syn_dir: Path, voc_dir: Path, models_dir: Path, language_code: str,
+          ground_truth: bool, save_every: int, backup_every: int, force_restart: bool):
     # Check to make sure the hop length is correctly factorised
     assert np.cumprod(hp.voc_upsample_factors)[-1] == hp.hop_length
     
@@ -48,9 +48,9 @@ def train(run_id: str, syn_dir: Path, voc_dir: Path, models_dir: Path, ground_tr
     loss_func = F.cross_entropy if model.mode == "RAW" else discretized_mix_logistic_loss
 
     # Load the weights
-    model_dir = models_dir.joinpath(run_id)
-    model_dir.mkdir(exist_ok=True)
-    weights_fpath = model_dir.joinpath(run_id + ".pt")
+    model_dir = models_dir.joinpath(language_code).joinpath(run_id).joinpath("vocoder")
+    model_dir.mkdir(parents=True, exist_ok=True)
+    weights_fpath = model_dir.joinpath("vocoder.pt")
     if force_restart or not weights_fpath.exists():
         print("\nStarting the training of WaveRNN from scratch\n")
         model.save(weights_fpath, optimizer)

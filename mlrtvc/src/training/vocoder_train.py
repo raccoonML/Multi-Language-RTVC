@@ -1,5 +1,7 @@
-from utils.argutils import print_args
-from vocoder.train import train
+import sys
+sys.path.append("../")
+from core.utils.argutils import print_args
+from core.vocoder.train import train
 from pathlib import Path
 import argparse
 
@@ -24,9 +26,11 @@ if __name__ == "__main__":
     parser.add_argument("--voc_dir", type=str, default=argparse.SUPPRESS, help= \
         "Path to the vocoder directory that contains the GTA synthesized mel spectrograms. "
         "Defaults to <datasets_root>/SV2TTS/vocoder/. Unused if --ground_truth is passed.")
-    parser.add_argument("-m", "--models_dir", type=str, default="vocoder/saved_models/", help=\
+    parser.add_argument("-m", "--models_dir", type=str, default="../../saved_models/", help=\
         "Path to the directory that will contain the saved model weights, as well as backups "
         "of those weights and wavs generated during training.")
+    parser.add_argument("-l", "--language_code", type=str, default="en_US", help=\
+        "Language code for the model.")
     parser.add_argument("-g", "--ground_truth", action="store_true", help= \
         "Train on ground truth spectrograms (<datasets_root>/SV2TTS/synthesizer/mels).")
     parser.add_argument("-s", "--save_every", type=int, default=1000, help= \
