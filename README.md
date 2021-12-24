@@ -69,3 +69,10 @@ for an Open Source project like ``MLRTVC``. For further information see [here](h
 
 - Stack Overflow: https://stackoverflow.com/questions/tagged/mlrtvc
 - GitHub Discussions: https://github.com/sveneschlbeck/Multi-Language-RTVC/discussions
+
+### Citation
+
+If you use this software in your own work, software implementations or research, please cite by navigating to the ``Cite this repository`` dropdown menu
+in the right sidebar and choose your citation style.
+
+![Citing](img/citing.png)
