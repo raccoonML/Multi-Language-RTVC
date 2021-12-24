@@ -23,25 +23,25 @@ def np_now(x: torch.Tensor): return x.detach().cpu().numpy()
 def time_string():
     return datetime.now().strftime("%Y-%m-%d %H:%M")
 
-def train(run_id: str, syn_dir: str, models_dir: str, save_every: int,
+def train(run_id: str, syn_dir: str, models_dir: str, language_code: str, save_every: int,
          backup_every: int, force_restart:bool, hparams):
 
     syn_dir = Path(syn_dir)
     models_dir = Path(models_dir)
     models_dir.mkdir(exist_ok=True)
 
-    model_dir = models_dir.joinpath(run_id)
+    model_dir = models_dir.joinpath(language_code).joinpath(run_id).joinpath("synthesizer")
     plot_dir = model_dir.joinpath("plots")
     wav_dir = model_dir.joinpath("wavs")
     mel_output_dir = model_dir.joinpath("mel-spectrograms")
     meta_folder = model_dir.joinpath("metas")
-    model_dir.mkdir(exist_ok=True)
+    model_dir.mkdir(parents=True, exist_ok=True)
     plot_dir.mkdir(exist_ok=True)
     wav_dir.mkdir(exist_ok=True)
     mel_output_dir.mkdir(exist_ok=True)
     meta_folder.mkdir(exist_ok=True)
     
-    weights_fpath = model_dir.joinpath(run_id).with_suffix(".pt")
+    weights_fpath = model_dir.joinpath("synthesizer.pt")
     metadata_fpath = syn_dir.joinpath("train.txt")
     
     print("Checkpoint path: {}".format(weights_fpath))
