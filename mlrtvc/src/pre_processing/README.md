@@ -1,5 +1,9 @@
 ## Preprocessing
 
+### Datasets
+
+For datasets to be detected by the preprocessing scripts, they must be arranged in a specific directory structure. See the [datasets readme](../datasets/README.md) for details.
+
 ### Folder structure
 
 Preprocessing creates one or more of these output folders in your datasets directory. Training only requires the SV2TTS folder corresponding to the model being trained (encoder, synthesizer, or vocoder).
