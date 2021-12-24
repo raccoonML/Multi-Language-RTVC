@@ -338,20 +338,20 @@ class UI(QDialog):
                         model_name: str):
         model_dir = saved_models_dir.joinpath(language_code)
         # Encoder
-        encoder_fpaths = list(model_dir.glob("**/encoder.pt"))
+        encoder_fpaths = list(model_dir.glob("**/encoder/encoder.pt"))
         if len(encoder_fpaths) == 0:
             raise Exception("No encoder models found in %s" % encoder_models_dir)
-        self.repopulate_box(self.encoder_box, [(f.parent.stem, f) for f in encoder_fpaths])
+        self.repopulate_box(self.encoder_box, [(f.parent.parent.stem, f) for f in encoder_fpaths])
         
         # Synthesizer
-        synthesizer_fpaths = list(model_dir.glob("**/synthesizer.pt"))
+        synthesizer_fpaths = list(model_dir.glob("**/synthesizer/synthesizer.pt"))
         if len(synthesizer_fpaths) == 0:
             raise Exception("No synthesizer models found in %s" % synthesizer_models_dir)
-        self.repopulate_box(self.synthesizer_box, [(f.parent.stem, f) for f in synthesizer_fpaths])
+        self.repopulate_box(self.synthesizer_box, [(f.parent.parent.stem, f) for f in synthesizer_fpaths])
 
         # Vocoder
-        vocoder_fpaths = list(model_dir.glob("**/vocoder.pt"))
-        vocoder_items = [(f.parent.stem, f) for f in vocoder_fpaths] + [("Griffin-Lim", None)]
+        vocoder_fpaths = list(model_dir.glob("**/vocoder/vocoder.pt"))
+        vocoder_items = [(f.parent.parent.stem, f) for f in vocoder_fpaths] + [("Griffin-Lim", None)]
         self.repopulate_box(self.vocoder_box, vocoder_items)
         
     @property

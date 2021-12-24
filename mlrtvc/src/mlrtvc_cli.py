@@ -67,9 +67,9 @@ if __name__ == '__main__':
     else:
         print("Using CPU for inference.\n")
 
-    enc_model_fpath = args.saved_models_dir.joinpath(args.language_code).joinpath(args.model_name).joinpath("encoder.pt")
-    syn_model_fpath = args.saved_models_dir.joinpath(args.language_code).joinpath(args.model_name).joinpath("synthesizer.pt")
-    voc_model_fpath = args.saved_models_dir.joinpath(args.language_code).joinpath(args.model_name).joinpath("vocoder.pt")
+    enc_model_fpath = args.saved_models_dir.joinpath(args.language_code).joinpath(args.model_name).joinpath("encoder/encoder.pt")
+    syn_model_fpath = args.saved_models_dir.joinpath(args.language_code).joinpath(args.model_name).joinpath("synthesizer/synthesizer.pt")
+    voc_model_fpath = args.saved_models_dir.joinpath(args.language_code).joinpath(args.model_name).joinpath("vocoder/vocoder.pt")
     
     ## Remind the user to download pretrained models if needed
     check_model_paths(encoder_path=enc_model_fpath,
