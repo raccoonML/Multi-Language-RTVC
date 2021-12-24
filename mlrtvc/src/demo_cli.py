@@ -19,15 +19,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    parser.add_argument("-e", "--enc_model_fpath", type=Path, 
-                        default="core/encoder/saved_models/pretrained.pt",
-                        help="Path to a saved encoder")
-    parser.add_argument("-s", "--syn_model_fpath", type=Path, 
-                        default="core/synthesizer/saved_models/pretrained/pretrained.pt",
-                        help="Path to a saved synthesizer")
-    parser.add_argument("-v", "--voc_model_fpath", type=Path, 
-                        default="core/vocoder/saved_models/pretrained/pretrained.pt",
-                        help="Path to a saved vocoder")
+    parser.add_argument("-s", "--saved_models_dir", type=Path, default="../saved_models",
+                        help="Directory containing saved models")
+    parser.add_argument("-l", "--language_code", type=str, default="en_US",
+                        help="Language to use for speech generation")
+    parser.add_argument("-m", "--model_name", type=str, default="pretrained",
+                        help="Name of MLRTVC saved model to use")
     parser.add_argument("--cpu", action="store_true", help=\
         "If True, processing is done on CPU, even when a GPU is available.")
     parser.add_argument("--no_sound", action="store_true", help=\
@@ -69,17 +66,21 @@ if __name__ == '__main__':
             gpu_properties.total_memory / 1e9))
     else:
         print("Using CPU for inference.\n")
+
+    enc_model_fpath = args.saved_models_dir.joinpath(args.language_code).joinpath(args.model_name).joinpath("encoder.pt")
+    syn_model_fpath = args.saved_models_dir.joinpath(args.language_code).joinpath(args.model_name).joinpath("synthesizer.pt")
+    voc_model_fpath = args.saved_models_dir.joinpath(args.language_code).joinpath(args.model_name).joinpath("vocoder.pt")
     
     ## Remind the user to download pretrained models if needed
-    check_model_paths(encoder_path=args.enc_model_fpath,
-                      synthesizer_path=args.syn_model_fpath,
-                      vocoder_path=args.voc_model_fpath)
+    check_model_paths(encoder_path=enc_model_fpath,
+                      synthesizer_path=syn_model_fpath,
+                      vocoder_path=voc_model_fpath)
     
     ## Load the models one by one.
     print("Preparing the encoder, the synthesizer and the vocoder...")
-    encoder.load_model(args.enc_model_fpath)
-    synthesizer = Synthesizer(args.syn_model_fpath)
-    vocoder.load_model(args.voc_model_fpath)
+    encoder.load_model(enc_model_fpath)
+    synthesizer = Synthesizer(syn_model_fpath)
+    vocoder.load_model(voc_model_fpath)
     
     
     ## Run a test
