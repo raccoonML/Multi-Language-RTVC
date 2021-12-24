@@ -13,8 +13,8 @@ def sync(device: torch.device):
     
 
 def train(run_id: str, clean_data_root: Path, models_dir: Path, umap_every: int, save_every: int,
-          backup_every: int, vis_every: int, force_restart: bool, visdom_server: str,
-          no_visdom: bool):
+          backup_every: int, vis_every: int, force_restart: bool, language_code: str, 
+          visdom_server: str, no_visdom: bool):
     # Create a dataset and a dataloader
     dataset = SpeakerVerificationDataset(clean_data_root)
     loader = SpeakerVerificationDataLoader(
@@ -37,8 +37,11 @@ def train(run_id: str, clean_data_root: Path, models_dir: Path, umap_every: int,
     init_step = 1
     
     # Configure file path for the model
-    state_fpath = models_dir.joinpath(run_id + ".pt")
-    backup_dir = models_dir.joinpath(run_id + "_backups")
+    state_fpath = models_dir.joinpath(language_code).joinpath(run_id).joinpath("encoder").joinpath("encoder.pt")
+    backup_dir = models_dir.joinpath(language_code).joinpath(run_id).joinpath("encoder").joinpath("backups")
+
+    # Make directories
+    backup_dir.mkdir(parents=True, exist_ok=True)
 
     # Load any existing model
     if not force_restart:

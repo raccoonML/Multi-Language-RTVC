@@ -1,5 +1,7 @@
-from utils.argutils import print_args
-from encoder.train import train
+import sys
+sys.path.append("../")
+from core.utils.argutils import print_args
+from core.encoder.train import train
 from pathlib import Path
 import argparse
 
@@ -17,7 +19,7 @@ if __name__ == "__main__":
     parser.add_argument("clean_data_root", type=Path, help= \
         "Path to the output directory of encoder_preprocess.py. If you left the default "
         "output directory when preprocessing, it should be <datasets_root>/SV2TTS/encoder/.")
-    parser.add_argument("-m", "--models_dir", type=Path, default="encoder/saved_models/", help=\
+    parser.add_argument("-m", "--models_dir", type=Path, default="../../saved_models/", help=\
         "Path to the output directory that will contain the saved model weights, as well as "
         "backups of those weights and plots generated during training.")
     parser.add_argument("-v", "--vis_every", type=int, default=10, help= \
@@ -33,6 +35,8 @@ if __name__ == "__main__":
         "model.")
     parser.add_argument("-f", "--force_restart", action="store_true", help= \
         "Do not load any saved model.")
+    parser.add_argument("-l", "--language_code", type=str, default="en_US", help= \
+        "Language code for the encoder model.")
     parser.add_argument("--visdom_server", type=str, default="http://localhost")
     parser.add_argument("--no_visdom", action="store_true", help= \
         "Disable visdom.")
