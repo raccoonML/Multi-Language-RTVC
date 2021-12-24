@@ -56,7 +56,7 @@ project by sharing their thoughts.
 There are multiple meaningful ways of contributing:
 
 - Developing code (new features, fixes, enhancements)
-- Writing documentation
+- Writing documentation and Wiki entries
 - Raising issues (bugs, feature requests, enhancement proposals, code refacturing, etc.)
 - Providing pre-trained models
 - Participating in community tasks (code reviews, discussions, maintenance, etc.)
