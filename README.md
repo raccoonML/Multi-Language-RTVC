@@ -22,20 +22,19 @@ seconds of unknown audio data.
 
 ## Installation & Setup
 In order for ``MLRTVC`` to work, you need Python installed on your machine. Visit https://www.python.org/downloads/ and download
-Python ``3.6`` or ``3.7`` for your Operating System (OS).  
-In addition to core Python, the following dependencies are required:
-- ``xxx``
-- ``xxx``
+Python for your Operating System (OS).  
+In addition to core Python, some dependant packages are required. They can be found [here](environment.yml).
 
 For more information on...
 
 ...how to install ``Python``,  
 ...how to create a virtual environment using ``Anaconda``,  
 ...how to clone a repository using ``Git``,  
-...how to setup ``CUDA`` and  
+...how to setup ``CUDA``,
+...how to install ``PyTorch`` and
 ...how to get started with ``MLRTVC``  
 
-for both ``Windows`` and ``Ubuntu``, visit our [Installation & Setup Wiki](https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/Installation-&-Setup).
+for both ``Windows`` and ``Linux``, visit our [Installation & Setup Wiki](https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/Installation-&-Setup).
 
 ## License
 
