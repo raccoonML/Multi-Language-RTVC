@@ -40,7 +40,7 @@ recognized_datasets = [
 MAX_WAVES = 15
 
 class Toolbox:
-    def __init__(self, datasets_root, saved_models_dir, language_code, model_name, seed, no_mp3_support):
+    def __init__(self, datasets_root, saved_models_dir, language_code, seed, no_mp3_support):
         if not no_mp3_support:
             try:
                 librosa.load("samples/6829_00000.mp3")
@@ -69,7 +69,7 @@ class Toolbox:
 
         # Initialize the events and the interface
         self.ui = UI()
-        self.reset_ui(saved_models_dir, language_code, model_name, seed)
+        self.reset_ui(saved_models_dir, language_code, seed)
         self.setup_events()
         self.ui.start()
 
@@ -135,9 +135,9 @@ class Toolbox:
     def replay_last_wav(self):
         self.ui.play(self.current_wav, Synthesizer.sample_rate)
 
-    def reset_ui(self, saved_models_dir, language_code, model_name, seed):
+    def reset_ui(self, saved_models_dir, language_code, seed):
         self.ui.populate_browser(self.datasets_root, recognized_datasets, 0, True)
-        self.ui.populate_models(saved_models_dir, language_code, model_name)
+        self.ui.populate_models(saved_models_dir, language_code)
         self.ui.populate_gen_options(seed, self.trim_silences)
         
     def load_from_browser(self, fpath=None):

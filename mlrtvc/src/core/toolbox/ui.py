@@ -334,8 +334,7 @@ class UI(QDialog):
     def current_vocoder_fpath(self):
         return self.vocoder_box.itemData(self.vocoder_box.currentIndex())
 
-    def populate_models(self, saved_models_dir: Path, language_code: str, 
-                        model_name: str):
+    def populate_models(self, saved_models_dir: Path, language_code: str):
         model_dir = saved_models_dir.joinpath(language_code)
         # Encoder
         encoder_fpaths = list(model_dir.glob("**/encoder/encoder.pt"))

@@ -19,8 +19,6 @@ if __name__ == '__main__':
                         help="Directory containing saved models")
     parser.add_argument("-l", "--language_code", type=str, default="en_US", 
                         help="Language to use for speech generation")
-    parser.add_argument("-m", "--model_name", type=str, default="pretrained", 
-                        help="Name of MLRTVC saved model to use")
     parser.add_argument("--cpu", action="store_true", help=\
         "If True, processing is done on CPU, even when a GPU is available.")
     parser.add_argument("--seed", type=int, default=None, help=\
