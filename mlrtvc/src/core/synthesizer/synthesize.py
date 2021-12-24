@@ -10,6 +10,7 @@ from pathlib import Path
 from tqdm import tqdm
 import platform
 
+
 def run_synthesis(in_dir, out_dir, model_dir, hparams):
     # This generates ground truth-aligned mels for vocoder training
     synth_dir = Path(out_dir).joinpath("mels_gta")
@@ -20,26 +21,30 @@ def run_synthesis(in_dir, out_dir, model_dir, hparams):
     if torch.cuda.is_available():
         device = torch.device("cuda")
         if hparams.synthesis_batch_size % torch.cuda.device_count() != 0:
-            raise ValueError("`hparams.synthesis_batch_size` must be evenly divisible by n_gpus!")
+            raise ValueError(
+                "`hparams.synthesis_batch_size` must be evenly divisible by n_gpus!"
+            )
     else:
         device = torch.device("cpu")
     print("Synthesizer using device:", device)
 
     # Instantiate Tacotron model
-    model = Tacotron(embed_dims=hparams.tts_embed_dims,
-                     num_chars=len(symbols),
-                     encoder_dims=hparams.tts_encoder_dims,
-                     decoder_dims=hparams.tts_decoder_dims,
-                     n_mels=hparams.num_mels,
-                     fft_bins=hparams.num_mels,
-                     postnet_dims=hparams.tts_postnet_dims,
-                     encoder_K=hparams.tts_encoder_K,
-                     lstm_dims=hparams.tts_lstm_dims,
-                     postnet_K=hparams.tts_postnet_K,
-                     num_highways=hparams.tts_num_highways,
-                     dropout=0., # Use zero dropout for gta mels
-                     stop_threshold=hparams.tts_stop_threshold,
-                     speaker_embedding_size=hparams.speaker_embedding_size).to(device)
+    model = Tacotron(
+        embed_dims=hparams.tts_embed_dims,
+        num_chars=len(symbols),
+        encoder_dims=hparams.tts_encoder_dims,
+        decoder_dims=hparams.tts_decoder_dims,
+        n_mels=hparams.num_mels,
+        fft_bins=hparams.num_mels,
+        postnet_dims=hparams.tts_postnet_dims,
+        encoder_K=hparams.tts_encoder_K,
+        lstm_dims=hparams.tts_lstm_dims,
+        postnet_K=hparams.tts_postnet_K,
+        num_highways=hparams.tts_num_highways,
+        dropout=0.0,  # Use zero dropout for gta mels
+        stop_threshold=hparams.tts_stop_threshold,
+        speaker_embedding_size=hparams.speaker_embedding_size,
+    ).to(device)
 
     # Load the weights
     model_dir = Path(model_dir)
@@ -61,17 +66,21 @@ def run_synthesis(in_dir, out_dir, model_dir, hparams):
     embed_dir = in_dir.joinpath("embeds")
 
     dataset = SynthesizerDataset(metadata_fpath, mel_dir, embed_dir, hparams)
-    data_loader = DataLoader(dataset,
-                             collate_fn=lambda batch: collate_synthesizer(batch, r, hparams),
-                             batch_size=hparams.synthesis_batch_size,
-                             num_workers=2 if platform.system() != "Windows" else 0,
-                             shuffle=False,
-                             pin_memory=True)
+    data_loader = DataLoader(
+        dataset,
+        collate_fn=lambda batch: collate_synthesizer(batch, r, hparams),
+        batch_size=hparams.synthesis_batch_size,
+        num_workers=2 if platform.system() != "Windows" else 0,
+        shuffle=False,
+        pin_memory=True,
+    )
 
     # Generate GTA mels
     meta_out_fpath = Path(out_dir).joinpath("synthesized.txt")
     with open(meta_out_fpath, "w") as file:
-        for i, (texts, mels, embeds, idx) in tqdm(enumerate(data_loader), total=len(data_loader)):
+        for i, (texts, mels, embeds, idx) in tqdm(
+            enumerate(data_loader), total=len(data_loader)
+        ):
             texts = texts.to(device)
             mels = mels.to(device)
             embeds = embeds.to(device)
@@ -88,7 +97,7 @@ def run_synthesis(in_dir, out_dir, model_dir, hparams):
                 mel_out = mels_out[j].detach().cpu().numpy().T
 
                 # Use the length of the ground truth mel to remove padding from the generated mels
-                mel_out = mel_out[:int(dataset.metadata[k][4])]
+                mel_out = mel_out[: int(dataset.metadata[k][4])]
 
                 # Write the spectrogram to disk
                 np.save(mel_filename, mel_out, allow_pickle=False)

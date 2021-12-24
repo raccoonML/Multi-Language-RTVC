@@ -39,7 +39,8 @@ class MelResNet(nn.Module):
         x = self.conv_in(x)
         x = self.batch_norm(x)
         x = F.relu(x)
-        for f in self.layers: x = f(x)
+        for f in self.layers:
+            x = f(x)
         x = self.conv_out(x)
         return x
 
@@ -58,8 +59,9 @@ class Stretch2d(nn.Module):
 
 
 class UpsampleNetwork(nn.Module):
-    def __init__(self, feat_dims, upsample_scales, compute_dims,
-                 res_blocks, res_out_dims, pad):
+    def __init__(
+        self, feat_dims, upsample_scales, compute_dims, res_blocks, res_out_dims, pad
+    ):
         super().__init__()
         total_scale = np.cumproduct(upsample_scales)[-1]
         self.indent = pad * total_scale
@@ -71,7 +73,7 @@ class UpsampleNetwork(nn.Module):
             padding = (0, scale)
             stretch = Stretch2d(scale, 1)
             conv = nn.Conv2d(1, 1, kernel_size=k_size, padding=padding, bias=False)
-            conv.weight.data.fill_(1. / k_size[1])
+            conv.weight.data.fill_(1.0 / k_size[1])
             self.up_layers.append(stretch)
             self.up_layers.append(conv)
 
@@ -80,23 +82,36 @@ class UpsampleNetwork(nn.Module):
         aux = self.resnet_stretch(aux)
         aux = aux.squeeze(1)
         m = m.unsqueeze(1)
-        for f in self.up_layers: m = f(m)
-        m = m.squeeze(1)[:, :, self.indent:-self.indent]
+        for f in self.up_layers:
+            m = f(m)
+        m = m.squeeze(1)[:, :, self.indent : -self.indent]
         return m.transpose(1, 2), aux.transpose(1, 2)
 
 
 class WaveRNN(nn.Module):
-    def __init__(self, rnn_dims, fc_dims, bits, pad, upsample_factors,
-                 feat_dims, compute_dims, res_out_dims, res_blocks,
-                 hop_length, sample_rate, mode='RAW'):
+    def __init__(
+        self,
+        rnn_dims,
+        fc_dims,
+        bits,
+        pad,
+        upsample_factors,
+        feat_dims,
+        compute_dims,
+        res_out_dims,
+        res_blocks,
+        hop_length,
+        sample_rate,
+        mode="RAW",
+    ):
         super().__init__()
         self.mode = mode
         self.pad = pad
-        if self.mode == 'RAW' :
+        if self.mode == "RAW":
             self.n_classes = 2 ** bits
-        elif self.mode == 'MOL' :
+        elif self.mode == "MOL":
             self.n_classes = 30
-        else :
+        else:
             RuntimeError("Unknown model mode value - ", self.mode)
 
         self.rnn_dims = rnn_dims
@@ -104,7 +119,9 @@ class WaveRNN(nn.Module):
         self.hop_length = hop_length
         self.sample_rate = sample_rate
 
-        self.upsample = UpsampleNetwork(feat_dims, upsample_factors, compute_dims, res_blocks, res_out_dims, pad)
+        self.upsample = UpsampleNetwork(
+            feat_dims, upsample_factors, compute_dims, res_blocks, res_out_dims, pad
+        )
         self.I = nn.Linear(feat_dims + self.aux_dims + 1, rnn_dims)
         self.rnn1 = nn.GRU(rnn_dims, rnn_dims, batch_first=True)
         self.rnn2 = nn.GRU(rnn_dims + self.aux_dims, rnn_dims, batch_first=True)
@@ -127,10 +144,10 @@ class WaveRNN(nn.Module):
         mels, aux = self.upsample(mels)
 
         aux_idx = [self.aux_dims * i for i in range(5)]
-        a1 = aux[:, :, aux_idx[0]:aux_idx[1]]
-        a2 = aux[:, :, aux_idx[1]:aux_idx[2]]
-        a3 = aux[:, :, aux_idx[2]:aux_idx[3]]
-        a4 = aux[:, :, aux_idx[3]:aux_idx[4]]
+        a1 = aux[:, :, aux_idx[0] : aux_idx[1]]
+        a2 = aux[:, :, aux_idx[1] : aux_idx[2]]
+        a3 = aux[:, :, aux_idx[2] : aux_idx[3]]
+        a4 = aux[:, :, aux_idx[3] : aux_idx[4]]
 
         x = torch.cat([x.unsqueeze(-1), mels, a1], dim=2)
         x = self.I(x)
@@ -151,7 +168,7 @@ class WaveRNN(nn.Module):
         return self.fc3(x)
 
     def generate(self, mels, batched, target, overlap, mu_law, progress_callback=None):
-        mu_law = mu_law if self.mode == 'RAW' else False
+        mu_law = mu_law if self.mode == "RAW" else False
         progress_callback = progress_callback or self.gen_display
 
         self.eval()
@@ -166,7 +183,7 @@ class WaveRNN(nn.Module):
             else:
                 mels = mels.cpu()
             wave_len = (mels.size(-1) - 1) * self.hop_length
-            mels = self.pad_tensor(mels.transpose(1, 2), pad=self.pad, side='both')
+            mels = self.pad_tensor(mels.transpose(1, 2), pad=self.pad, side="both")
             mels, aux = self.upsample(mels.transpose(1, 2))
 
             if batched:
@@ -185,7 +202,7 @@ class WaveRNN(nn.Module):
                 x = torch.zeros(b_size, 1).cpu()
 
             d = self.aux_dims
-            aux_split = [aux[:, :, d * i:d * (i + 1)] for i in range(4)]
+            aux_split = [aux[:, :, d * i : d * (i + 1)] for i in range(4)]
 
             for i in range(seq_len):
 
@@ -210,8 +227,10 @@ class WaveRNN(nn.Module):
 
                 logits = self.fc3(x)
 
-                if self.mode == 'MOL':
-                    sample = sample_from_discretized_mix_logistic(logits.unsqueeze(0).transpose(1, 2))
+                if self.mode == "MOL":
+                    sample = sample_from_discretized_mix_logistic(
+                        logits.unsqueeze(0).transpose(1, 2)
+                    )
                     output.append(sample.view(-1))
                     if torch.cuda.is_available():
                         # x = torch.FloatTensor([[sample]]).cuda()
@@ -219,11 +238,11 @@ class WaveRNN(nn.Module):
                     else:
                         x = sample.transpose(0, 1)
 
-                elif self.mode == 'RAW' :
+                elif self.mode == "RAW":
                     posterior = F.softmax(logits, dim=1)
                     distrib = torch.distributions.Categorical(posterior)
 
-                    sample = 2 * distrib.sample().float() / (self.n_classes - 1.) - 1.
+                    sample = 2 * distrib.sample().float() / (self.n_classes - 1.0) - 1.0
                     output.append(sample)
                     x = sample.unsqueeze(-1)
                 else:
@@ -236,7 +255,7 @@ class WaveRNN(nn.Module):
         output = torch.stack(output).transpose(0, 1)
         output = output.cpu().numpy()
         output = output.astype(np.float64)
-        
+
         if batched:
             output = self.xfade_and_unfold(output, target, overlap)
         else:
@@ -250,16 +269,15 @@ class WaveRNN(nn.Module):
         # Fade-out at the end to avoid signal cutting out suddenly
         fade_out = np.linspace(1, 0, 20 * self.hop_length)
         output = output[:wave_len]
-        output[-20 * self.hop_length:] *= fade_out
-        
+        output[-20 * self.hop_length :] *= fade_out
+
         self.train()
 
         return output
 
-
     def gen_display(self, i, seq_len, b_size, gen_rate):
         pbar = progbar(i, seq_len)
-        msg = f'| {pbar} {i*b_size}/{seq_len*b_size} | Batch Size: {b_size} | Gen Rate: {gen_rate:.1f}kHz | '
+        msg = f"| {pbar} {i*b_size}/{seq_len*b_size} | Batch Size: {b_size} | Gen Rate: {gen_rate:.1f}kHz | "
         stream(msg)
 
     def get_gru_cell(self, gru):
@@ -270,24 +288,24 @@ class WaveRNN(nn.Module):
         gru_cell.bias_ih.data = gru.bias_ih_l0.data
         return gru_cell
 
-    def pad_tensor(self, x, pad, side='both'):
+    def pad_tensor(self, x, pad, side="both"):
         # NB - this is just a quick method i need right now
         # i.e., it won't generalise to other shapes/dims
         b, t, c = x.size()
-        total = t + 2 * pad if side == 'both' else t + pad
+        total = t + 2 * pad if side == "both" else t + pad
         if torch.cuda.is_available():
             padded = torch.zeros(b, total, c).cuda()
         else:
             padded = torch.zeros(b, total, c).cpu()
-        if side == 'before' or side == 'both':
-            padded[:, pad:pad + t, :] = x
-        elif side == 'after':
+        if side == "before" or side == "both":
+            padded[:, pad : pad + t, :] = x
+        elif side == "after":
             padded[:, :t, :] = x
         return padded
 
     def fold_with_overlap(self, x, target, overlap):
 
-        ''' Fold the tensor with overlap for quick batched inference.
+        """Fold the tensor with overlap for quick batched inference.
             Overlap will be used for crossfading in xfade_and_unfold()
 
         Args:
@@ -309,7 +327,7 @@ class WaveRNN(nn.Module):
             folded = [[h1, h2, h3, h4],
                       [h4, h5, h6, h7],
                       [h7, h8, h9, h10]]
-        '''
+        """
 
         _, total_len, features = x.size()
 
@@ -322,7 +340,7 @@ class WaveRNN(nn.Module):
         if remaining != 0:
             num_folds += 1
             padding = target + 2 * overlap - remaining
-            x = self.pad_tensor(x, padding, side='after')
+            x = self.pad_tensor(x, padding, side="after")
 
         if torch.cuda.is_available():
             folded = torch.zeros(num_folds, target + 2 * overlap, features).cuda()
@@ -339,7 +357,7 @@ class WaveRNN(nn.Module):
 
     def xfade_and_unfold(self, y, target, overlap):
 
-        ''' Applies a crossfade and unfolds into a 1d array.
+        """Applies a crossfade and unfolds into a 1d array.
 
         Args:
             y (ndarry)    : Batched sequences of audio samples
@@ -367,7 +385,7 @@ class WaveRNN(nn.Module):
 
             [seq1_in, seq1_target, (seq1_out + seq2_in), seq2_target, ...]
 
-        '''
+        """
 
         num_folds, length = y.shape
         target = length - 2 * overlap
@@ -401,18 +419,18 @@ class WaveRNN(nn.Module):
 
         return unfolded
 
-    def get_step(self) :
+    def get_step(self):
         return self.step.data.item()
 
-    def checkpoint(self, model_dir, optimizer) :
+    def checkpoint(self, model_dir, optimizer):
         k_steps = self.get_step() // 1000
         self.save(model_dir.joinpath("checkpoint_%dk_steps.pt" % k_steps), optimizer)
 
-    def log(self, path, msg) :
-        with open(path, 'a') as f:
+    def log(self, path, msg):
+        with open(path, "a") as f:
             print(msg, file=f)
 
-    def load(self, path, optimizer) :
+    def load(self, path, optimizer):
         checkpoint = torch.load(path)
         if "optimizer_state" in checkpoint:
             self.load_state_dict(checkpoint["model_state"])
@@ -421,14 +439,17 @@ class WaveRNN(nn.Module):
             # Backwards compatibility
             self.load_state_dict(checkpoint)
 
-    def save(self, path, optimizer) :
-        torch.save({
-            "model_state": self.state_dict(),
-            "optimizer_state": optimizer.state_dict(),
-        }, path)
+    def save(self, path, optimizer):
+        torch.save(
+            {
+                "model_state": self.state_dict(),
+                "optimizer_state": optimizer.state_dict(),
+            },
+            path,
+        )
 
     def num_params(self, print_out=True):
         parameters = filter(lambda p: p.requires_grad, self.parameters())
         parameters = sum([np.prod(p.size()) for p in parameters]) / 1_000_000
-        if print_out :
-            print('Trainable Parameters: %.3fM' % parameters)
+        if print_out:
+            print("Trainable Parameters: %.3fM" % parameters)
