@@ -12,6 +12,7 @@ import platform
 
 def run_synthesis(in_dir, out_dir, model_dir, hparams):
     # This generates ground truth-aligned mels for vocoder training
+    Path(out_dir).mkdir(exist_ok=True)
     synth_dir = Path(out_dir).joinpath("mels_gta")
     synth_dir.mkdir(exist_ok=True)
     print(hparams_debug_string())
