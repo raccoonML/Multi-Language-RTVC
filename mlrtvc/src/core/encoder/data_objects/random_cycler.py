@@ -6,13 +6,14 @@ class RandomCycler:
     Creates an internal copy of a sequence and allows access to its items in a constrained random
     order. For a source sequence of n items and one or several consecutive queries of a total
     of m items, the following guarantees hold (one implies the other):
-        - Each item will be returned between m // n and ((m - 1) // n) + 1 times.
-        - Between two appearances of the same item, there may be at most 2 * (n - 1) other items.
+    
+    - Each item will be returned between m // n and ((m - 1) // n) + 1 times.
+    - Between two appearances of the same item, there may be at most 2 * (n - 1) other items.
     """
 
     def __init__(self, source):
         if len(source) == 0:
-            raise Exception("Can't create RandomCycler from an empty collection")
+            raise Exception("Creation of RandomCycler from an empty collection is not possible.")
         self.all_items = list(source)
         self.next_items = []
 
