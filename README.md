@@ -39,7 +39,7 @@ for both ``Windows`` and ``Linux``, visit our [Installation & Setup Wiki](https:
 ## License
 
 This code is licensed under ``MIT``. For more information regarding the license model or
-associated duties and rights, click [here](LICENSE).
+associated duties and rights, click [here](LICENSE.md).
 
 ## Project History
 
