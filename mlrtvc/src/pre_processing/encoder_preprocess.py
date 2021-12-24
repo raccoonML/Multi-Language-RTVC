@@ -1,5 +1,7 @@
-from encoder.preprocess import preprocess_librispeech, preprocess_voxceleb1, preprocess_voxceleb2
-from utils.argutils import print_args
+import sys
+sys.path.append("../")
+from core.encoder.preprocess import preprocess_librispeech, preprocess_voxceleb1, preprocess_voxceleb2
+from core.utils.argutils import print_args
 from pathlib import Path
 import argparse
 

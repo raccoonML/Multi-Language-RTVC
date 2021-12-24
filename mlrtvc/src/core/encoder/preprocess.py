@@ -22,7 +22,7 @@ class DatasetLog:
         self._log_params()
         
     def _log_params(self):
-        from encoder import params_data
+        from core.encoder import params_data
         self.write_line("Parameter values:")
         for param_name in (p for p in dir(params_data) if not p.startswith("__")):
             value = getattr(params_data, param_name)
