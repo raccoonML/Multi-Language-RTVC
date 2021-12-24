@@ -15,12 +15,12 @@ if __name__ == '__main__':
     parser.add_argument("-d", "--datasets_root", type=Path, help= \
         "Path to the directory containing your datasets. See toolbox/__init__.py for a list of "
         "supported datasets.", default=None)
-    parser.add_argument("-e", "--enc_models_dir", type=Path, default="core/encoder/saved_models", 
-                        help="Directory containing saved encoder models")
-    parser.add_argument("-s", "--syn_models_dir", type=Path, default="core/synthesizer/saved_models", 
-                        help="Directory containing saved synthesizer models")
-    parser.add_argument("-v", "--voc_models_dir", type=Path, default="core/vocoder/saved_models", 
-                        help="Directory containing saved vocoder models")
+    parser.add_argument("-s", "--saved_models_dir", type=Path, default="../saved_models", 
+                        help="Directory containing saved models")
+    parser.add_argument("-l", "--language_code", type=str, default="en_US", 
+                        help="Language to use for speech generation")
+    parser.add_argument("-m", "--model_name", type=str, default="pretrained", 
+                        help="Name of MLRTVC saved model to use")
     parser.add_argument("--cpu", action="store_true", help=\
         "If True, processing is done on CPU, even when a GPU is available.")
     parser.add_argument("--seed", type=int, default=None, help=\
@@ -34,10 +34,6 @@ if __name__ == '__main__':
         # Hide GPUs from Pytorch to force CPU processing
         os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
     del args.cpu
-
-    ## Remind the user to download pretrained models if needed
-    check_model_paths(encoder_path=args.enc_models_dir, synthesizer_path=args.syn_models_dir,
-                      vocoder_path=args.voc_models_dir)
 
     # Launch the toolbox
     Toolbox(**vars(args))    
