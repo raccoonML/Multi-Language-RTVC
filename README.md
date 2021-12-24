@@ -20,6 +20,23 @@
 of transfering speaker-specific audio features to synthesize speeches in that voice based on just a few
 seconds of unknown audio data.
 
+## Installation & Setup
+In order for ``MLRTVC`` to work, you need Python installed on your machine. Visit https://www.python.org/downloads/ and download
+Python ``3.6`` or ``3.7`` for your Operating System (OS).  
+In addition to core Python, the following dependencies are required:
+- ``xxx``
+- ``xxx``
+
+For more information on...
+
+...how to install ``Python``,  
+...how to create a virtual environment using ``Anaconda``,  
+...how to clone a repository using ``Git``,  
+...how to setup ``CUDA`` and  
+...how to get started with ``MLRTVC``  
+
+for both ``Windows`` and ``Ubuntu``, visit our [Installation & Setup Wiki](https://github.com/sveneschlbeck/Multi-Language-RTVC/wiki/Installation-&-Setup).
+
 ## License
 
 This code is licensed under ``MIT``. For more information regarding the license model or
@@ -39,7 +56,7 @@ project by sharing their thoughts.
 There are multiple meaningful ways of contributing:
 
 - Developing code (new features, fixes, enhancements)
-- Writing documentation
+- Writing documentation and Wiki entries
 - Raising issues (bugs, feature requests, enhancement proposals, code refacturing, etc.)
 - Providing pre-trained models
 - Participating in community tasks (code reviews, discussions, maintenance, etc.)
