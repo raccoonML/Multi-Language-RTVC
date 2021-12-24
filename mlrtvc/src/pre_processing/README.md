@@ -41,14 +41,14 @@ Supported datasets are LibriSpeech and LibriTTS. Folders other than `train-clean
 python synthesizer_preprocess.py ../datasets
 ```
 
-### LibriTTS preprocessing
+#### LibriTTS preprocessing
 
 ```
 python synthesizer_preprocess.py ../datasets --datasets_name LibriTTS --no_alignments
 ```
 
 
-## Vocoder
+### Vocoder
 
 Vocoder training requires the audio preprocessing and mel spectrogram generation for the synthesizer, described above. The preprocessing step here is **completely optional** as there is a command-line flag to train on the ground truth mels in `datasets/SV2TTS/synthesizer/mels`.
 
