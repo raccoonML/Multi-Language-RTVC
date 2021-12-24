@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software in your own work, software implementations or research, please cite it as below."
+authors:
+- family-names: "Eschlbeck"
+  given-names: "Sven"
+  orcid: "https://orcid.org/0000-0002-7219-6108"
+title: "Multi-Language-RTVC"
+version: 1.0.0
+date-released: 2021-12-11
+url: "https://github.com/sveneschlbeck/Multi-Language-RTVC"
+keywords:
+- audio signal processing
+- voice cloning
+- spectrogram
+- audio feature engineering
+- multi-language-rtvc
+- rtvc
+- voice recognition
+- speech synthesis
+license: "MIT"
