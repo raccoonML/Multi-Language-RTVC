@@ -41,6 +41,22 @@ for both ``Windows`` and ``Linux``, visit our [Installation & Setup Wiki](https:
 This code is licensed under ``MIT``. For more information regarding the license model or
 associated duties and rights, click [here](LICENSE.md).
 
+## Ethics & Legal
+
+With the exception of one's own voice, the cloning of voices may only be done with the voices of people
+who have expressly consented to the use of their voice for AI applications or whose statements,
+speeches or recordings are publicly available and not protected by copyright.  
+``MLRTVC`` gives users the power and the potential to create statements that were never made in this form
+and thus represent fictions. This power binds the users of this software to the duty to use this technology
+responsibly, to always think about the consequences of their actions and to use cloning exclusively in the
+course of curiosity, science and learning.  
+If synthetically generated statements are used to blackmail other people, influence political debates or
+deliberately spread false statements in the real or digital world, this can lead to negative consequences
+for people and severe legal penalties.  
+We as developers and the ``MLRTVC`` community assume no liability or
+responsibility for the use of ``MLRTVC`` by others and will strictly refuse to cooperate with people who
+have negative intentions regarding the use of voice cloning.
+
 ## Project History
 
 This project was started in 2021 with the goal of inheriting Corentin Jemine's [``Real-Time-Voice-Cloning``](https://github.com/CorentinJ/Real-Time-Voice-Cloning).
