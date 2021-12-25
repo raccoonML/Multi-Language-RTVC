@@ -1,3 +1,7 @@
+"""
+Internal sequence copy management
+"""
+
 import random
 
 
