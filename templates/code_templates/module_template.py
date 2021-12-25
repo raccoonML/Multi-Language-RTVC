@@ -1,18 +1,12 @@
 """
-==========
-Person Bio
-==========
 Simply and short description of the module's purpose,
 in this case the intial characterization of a person.
-
-@see <link_to_relevant_page>
 """
 
-# Author: Sven Eschlbeck <sven.eschlbeck@t-online.de>
-# License: MIT
-
-# Simple person-creating class
 class Person:
+    """
+    Short class description.
+    """
     def __init__(self, name, age):
         """
         Receives name and age as
