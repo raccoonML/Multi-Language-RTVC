@@ -3,10 +3,12 @@ Simply and short description of the module's purpose,
 in this case the intial characterization of a person.
 """
 
+
 class Person:
     """
     Short class description.
     """
+
     def __init__(self, name, age):
         """
         Receives name and age as
