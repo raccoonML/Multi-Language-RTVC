@@ -1,3 +1,9 @@
+"""
+Toolbox application with user-friendly GUI for
+easy ``MLRTVC`` usage.
+"""
+
+
 from pathlib import Path
 from core.toolbox import Toolbox
 from core.utils.argutils import print_args
