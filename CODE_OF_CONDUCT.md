@@ -18,7 +18,9 @@ questions, write documentation, enhance the Wiki pages,
 work on issues or help make ``MLRTVC`` more popular.
 
 We abide by the principles of openness, respect, and consideration
-of others of the Python Software Foundation: https://www.python.org/psf/codeofconduct/
+of others of the Python Software Foundation: https://www.python.org/psf/codeofconduct/.
+From those principles derives the self-evident that the usage of this software does not
+harm, abuse, disrespect or expose people.
 
 This Code of Conduct is in parts adapted and inspired from
-[``scikit-learn``](https://github.com/scikit-learn/scikit-learn)'s Code of conduct: https://github.com/scikit-learn/scikit-learn/blob/main/CODE_OF_CONDUCT.md
+[``scikit-learn``](https://github.com/scikit-learn/scikit-learn)'s Code of conduct: https://github.com/scikit-learn/scikit-learn/blob/main/CODE_OF_CONDUCT.md.
