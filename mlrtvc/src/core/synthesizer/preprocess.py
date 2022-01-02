@@ -287,11 +287,11 @@ def embed_utterance(fpaths, encoder_model_fpath, skip_existing):
 
     # Compute the speaker embedding of the utterance
     wav_fpath, embed_fpath = fpaths
-    
+
     # Skip existing if already embedded
     if skip_existing and embed_fpath.exists():
         return
-    
+
     wav = np.load(wav_fpath)
     wav = encoder.preprocess_wav(wav)
     embed = encoder.embed_utterance(wav)
@@ -320,7 +320,7 @@ def create_embeddings(
     func = partial(
         embed_utterance,
         encoder_model_fpath=encoder_model_fpath,
-        skip_existing=skip_existing
+        skip_existing=skip_existing,
     )
     job = Pool(n_processes).imap(func, fpaths)
     list(tqdm(job, "Embedding", len(fpaths), unit="utterances"))
