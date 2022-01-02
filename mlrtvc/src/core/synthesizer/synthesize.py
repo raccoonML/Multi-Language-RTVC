@@ -3,6 +3,7 @@ from torch.utils.data import DataLoader
 from core.synthesizer.hparams import hparams_debug_string
 from core.synthesizer.synthesizer_dataset import SynthesizerDataset, collate_synthesizer
 from core.synthesizer.models.tacotron import Tacotron
+from core.synthesizer.utils import data_parallel_workaround
 from core.synthesizer.utils.text import text_to_sequence
 from core.synthesizer.utils.symbols import symbols
 import numpy as np
