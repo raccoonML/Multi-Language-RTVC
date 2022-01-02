@@ -128,6 +128,7 @@ if __name__ == "__main__":
         encoder_model_fpath=args.encoder_model_fpath,
         n_processes=args.max_embed_processes,
         synthesizer_root=args.out_dir,
+        skip_existing=args.skip_existing,
     )
 
     # Delete args not used for mel preprocessing
