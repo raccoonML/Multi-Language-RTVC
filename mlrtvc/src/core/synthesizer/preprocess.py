@@ -302,7 +302,7 @@ def create_embeddings(
     synthesizer_root: Path,
     encoder_model_fpath: Path,
     n_processes: int,
-    skip_existing: bool
+    skip_existing: bool,
 ):
     wav_dir = synthesizer_root.joinpath("audio")
     metadata_fpath = synthesizer_root.joinpath("train.txt")
@@ -317,6 +317,10 @@ def create_embeddings(
 
     # TODO: improve on the multiprocessing, it's terrible. Disk I/O is the bottleneck here.
     # Embed the utterances in separate threads
-    func = partial(embed_utterance, encoder_model_fpath=encoder_model_fpath, skip_existing=skip_existing)
+    func = partial(
+        embed_utterance,
+        encoder_model_fpath=encoder_model_fpath,
+        skip_existing=skip_existing
+    )
     job = Pool(n_processes).imap(func, fpaths)
     list(tqdm(job, "Embedding", len(fpaths), unit="utterances"))
