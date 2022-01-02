@@ -299,7 +299,10 @@ def embed_utterance(fpaths, encoder_model_fpath, skip_existing):
 
 
 def create_embeddings(
-    synthesizer_root: Path, encoder_model_fpath: Path, n_processes: int, skip_existing: bool
+    synthesizer_root: Path,
+    encoder_model_fpath: Path,
+    n_processes: int,
+    skip_existing: bool
 ):
     wav_dir = synthesizer_root.joinpath("audio")
     metadata_fpath = synthesizer_root.joinpath("train.txt")
