@@ -63,28 +63,8 @@ def melspectrogram(wav, hparams):
     # Transform to mel scale
     S = np.dot(_mel_basis, S)
 
-    if hparams.use_hifigan_spectrograms:
-        # Dynamic range compression
-        S = np.log(np.clip(S, a_min=1e-5, a_max=None))
-    else:
-        # Convert amplitude to dB
-        min_level = np.exp((hparams.min_level_db + hparams.ref_level_db)/ 20 * np.log(10))
-        S = 20 * np.log10(np.maximum(min_level, S)) - hparams.ref_level_db
-
-        # Normalize
-        if hparams.signal_normalization:
-            S = (S - hparams.min_level_db) / (-hparams.min_level_db)
-            if hparams.symmetric_mels:
-                S = 2 * hparams.max_abs_value * S - hparams.max_abs_value
-                min_value = -hparams.max_abs_value
-                max_value = hparams.max_abs_value
-            else:
-                S = hparams.max_abs_value * S
-                min_value = 0
-                max_value = hparams.max_abs_value
-
-            if hparams.allow_clipping_in_normalization:
-                S = np.clip(S, min_value, max_value)
+    # Dynamic range compression
+    S = np.log(np.clip(S, a_min=1e-5, a_max=None))
 
     return S.astype(np.float32)
 
@@ -93,26 +73,7 @@ def inv_mel_spectrogram(S, hparams):
     # Input shape = (num_mels, frames)
     
     # Denormalize
-    if hparams.use_hifigan_spectrograms:
-        S = np.exp(S)
-    else:
-        if hparams.signal_normalization:
-            # Clip spectrogram to limits
-            if hparams.allow_clipping_in_normalization:
-                if hparams.symmetric_mels:
-                    S = np.clip(S, -hparams.max_abs_value, hparams.max_abs_value)
-                else:
-                    S = np.clip(S, 0, hparams.max_abs_value)
-
-            # Undo normalization
-            if hparams.symmetric_mels:
-                S = ((S + hparams.max_abs_value) * -hparams.min_level_db / (2 * hparams.max_abs_value)) + hparams.min_level_db
-            else:
-                S = (S * -hparams.min_level_db / hparams.max_abs_value) + hparams.min_level_db
-
-        # Convert amplitude from dB to absolute value
-        S = S + hparams.ref_level_db
-        S = np.power(10.0, 0.05 * S)
+    S = np.exp(S)
 
     # Build and cache mel basis
     # This improves speed when calculating thousands of mel spectrograms.

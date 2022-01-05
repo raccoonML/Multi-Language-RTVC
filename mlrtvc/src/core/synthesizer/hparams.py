@@ -35,12 +35,9 @@ hparams = HParams(
     hop_size=256,  # Tacotron uses 12.5 ms frame shift (set to sample_rate * 0.0125)
     win_size=1024,  # Tacotron uses 50 ms frame length (set to sample_rate * 0.050)
     fmin=0,
-    min_level_db=-100,
-    ref_level_db=20,
-    max_abs_value=4.0,  # Gradient explodes if too big, premature convergence if too small.
+    fmax=8000,  # Should not exceed (sample_rate // 2)
     preemphasis=0.97,  # Filter coefficient to use if preemphasize is True
     preemphasize=False,
-    use_hifigan_spectrograms=True,  # Match definition of hifigan pretrained models
     ### Tacotron Text-to-Speech (TTS)
     tts_embed_dims=512,  # Embedding dimension for the graphemes/phoneme inputs
     tts_encoder_dims=256,
@@ -75,16 +72,10 @@ hparams = HParams(
     rescaling_max=0.9,
     synthesis_batch_size=16,  # For vocoder preprocessing and inference.
     ### Mel Visualization and Griffin-Lim
-    signal_normalization=True,
     power=1.5,
     griffin_lim_iters=60,
     ### Audio processing options
-    fmax=8000,  # Should not exceed (sample_rate // 2)
-    allow_clipping_in_normalization=True,  # Used when signal_normalization = True
     clip_mels_length=True,  # If true, discards samples exceeding max_mel_frames
-    use_lws=False,  # "Fast spectrogram phase recovery using local weighted sums"
-    symmetric_mels=True,  # Sets mel range to [-max_abs_value, max_abs_value] if True,
-    #               and [0, max_abs_value] if False
     trim_silence=True,  # Use with sample_rate of 16000 for best results
     ### SV2TTS
     speaker_embedding_size=256,  # Dimension for the speaker embedding
