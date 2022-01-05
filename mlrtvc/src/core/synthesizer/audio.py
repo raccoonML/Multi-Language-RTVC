@@ -24,7 +24,6 @@ import librosa
 import numpy as np
 import soundfile as sf
 import torch
-import torchaudio
 from scipy import signal
 
 _mel_basis = None
@@ -64,49 +63,56 @@ def melspectrogram(wav, hparams):
     # Transform to mel scale
     S = np.dot(_mel_basis, S)
 
-    # Convert amplitude to dB
-    min_level = np.exp((hparams.min_level_db + hparams.ref_level_db)/ 20 * np.log(10))
-    S = 20 * np.log10(np.maximum(min_level, S)) - hparams.ref_level_db
+    if hparams.use_hifigan_spectrograms:
+        # Dynamic range compression
+        S = np.log(np.clip(S, a_min=1e-5, a_max=None))
+    else:
+        # Convert amplitude to dB
+        min_level = np.exp((hparams.min_level_db + hparams.ref_level_db)/ 20 * np.log(10))
+        S = 20 * np.log10(np.maximum(min_level, S)) - hparams.ref_level_db
 
-    # Normalize
-    if hparams.signal_normalization:
-        S = (S - hparams.min_level_db) / (-hparams.min_level_db)
-        if hparams.symmetric_mels:
-            S = 2 * hparams.max_abs_value * S - hparams.max_abs_value
-            min_value = -hparams.max_abs_value
-            max_value = hparams.max_abs_value
-        else:
-            S = hparams.max_abs_value * S
-            min_value = 0
-            max_value = hparams.max_abs_value
+        # Normalize
+        if hparams.signal_normalization:
+            S = (S - hparams.min_level_db) / (-hparams.min_level_db)
+            if hparams.symmetric_mels:
+                S = 2 * hparams.max_abs_value * S - hparams.max_abs_value
+                min_value = -hparams.max_abs_value
+                max_value = hparams.max_abs_value
+            else:
+                S = hparams.max_abs_value * S
+                min_value = 0
+                max_value = hparams.max_abs_value
 
-        if hparams.allow_clipping_in_normalization:
-            S = np.clip(S, min_value, max_value)
+            if hparams.allow_clipping_in_normalization:
+                S = np.clip(S, min_value, max_value)
 
-    return S
+    return S.astype(np.float32)
 
 def inv_mel_spectrogram(S, hparams):
     # Converts a mel spectrogram to waveform using Griffin-Lim
     # Input shape = (num_mels, frames)
     
     # Denormalize
-    if hparams.signal_normalization:
-        # Clip spectrogram to limits
-        if hparams.allow_clipping_in_normalization:
+    if hparams.use_hifigan_spectrograms:
+        S = np.exp(S)
+    else:
+        if hparams.signal_normalization:
+            # Clip spectrogram to limits
+            if hparams.allow_clipping_in_normalization:
+                if hparams.symmetric_mels:
+                    S = np.clip(S, -hparams.max_abs_value, hparams.max_abs_value)
+                else:
+                    S = np.clip(S, 0, hparams.max_abs_value)
+
+            # Undo normalization
             if hparams.symmetric_mels:
-                S = np.clip(S, -hparams.max_abs_value, hparams.max_abs_value)
+                S = ((S + hparams.max_abs_value) * -hparams.min_level_db / (2 * hparams.max_abs_value)) + hparams.min_level_db
             else:
-                S = np.clip(S, 0, hparams.max_abs_value)
+                S = (S * -hparams.min_level_db / hparams.max_abs_value) + hparams.min_level_db
 
-        # Undo normalization
-        if hparams.symmetric_mels:
-            S = ((S + hparams.max_abs_value) * -hparams.min_level_db / (2 * hparams.max_abs_value)) + hparams.min_level_db
-        else:
-            S = (S * -hparams.min_level_db / hparams.max_abs_value) + hparams.min_level_db
-
-    # Convert amplitude from dB to absolute value
-    S = S + hparams.ref_level_db
-    S = np.power(10.0, 0.05 * S)
+        # Convert amplitude from dB to absolute value
+        S = S + hparams.ref_level_db
+        S = np.power(10.0, 0.05 * S)
 
     # Build and cache mel basis
     # This improves speed when calculating thousands of mel spectrograms.
@@ -146,21 +152,11 @@ def _build_mel_basis(hparams):
                                fmin=hparams.fmin, fmax=hparams.fmax)
 
 def _griffin_lim(S, hparams):
-    if True:
-        # Torchaudio result is same, but much faster
-        device = torch.device("cpu")
-        S_tensor = torch.tensor(S, dtype=torch.float32).to(device)
-        window_tensor = torch.tensor(signal.windows.hann(hparams.win_size, sym=True), dtype=torch.float32).to(device)
-        wav_tensor = torchaudio.functional.griffinlim(S_tensor, window_tensor, hparams.n_fft, hparams.hop_size,
-                                                      hparams.win_size, 1.0, hparams.griffin_lim_iters, 0.0, None, False)
-        wav = wav_tensor.cpu().numpy()
-    else:
-        # Another Griffin-Lim implementation
-        angles = np.exp(2j * np.pi * np.random.rand(*S.shape))
-        S = np.abs(S).astype(np.complex)
+    angles = np.exp(2j * np.pi * np.random.rand(*S.shape))
+    S = np.abs(S).astype(np.complex)
+    wav = librosa.istft(S * angles, hop_length=hparams.hop_size, win_length=hparams.win_size)
+    for i in range(hparams.griffin_lim_iters):
+        angles = np.exp(1j * np.angle(librosa.stft(wav, n_fft=hparams.n_fft, hop_length=hparams.hop_size, win_length=hparams.win_size)))
         wav = librosa.istft(S * angles, hop_length=hparams.hop_size, win_length=hparams.win_size)
-        for i in range(hparams.griffin_lim_iters):
-            angles = np.exp(1j * np.angle(librosa.stft(wav, n_fft=hparams.n_fft, hop_length=hparams.hop_size, win_length=hparams.win_size)))
-            wav = librosa.istft(S * angles, hop_length=hparams.hop_size, win_length=hparams.win_size)
 
     return wav
