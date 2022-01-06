@@ -28,14 +28,14 @@ from scipy import signal
 
 _mel_basis = None
 
-def load_wav(path, hparams):
+def load_wav(path, sr):
     # Loads an audio file and returns the waveform data.
-    wav, _ = librosa.load(str(path), hparams.sample_rate)
+    wav, _ = librosa.load(str(path), sr=sr)
     return wav
 
-def save_wav(wav, path, hparams):
+def save_wav(wav, path, sr):
     # Saves waveform data to audio file.
-    sf.write(path, wav, hparams.sample_rate)
+    sf.write(path, wav, sr)
 
 def melspectrogram(wav, hparams):
     # Converts a waveform to a mel-scale spectrogram.
@@ -43,7 +43,7 @@ def melspectrogram(wav, hparams):
 
     # Apply preemphasis
     if hparams.preemphasize:
-        wav = _preemphasis(wav, hparams)
+        wav = preemphasis(wav, hparams.preemphasis)
 
     # Short-time Fourier Transform (STFT)
     D = librosa.stft(y=wav,
@@ -94,18 +94,20 @@ def inv_mel_spectrogram(S, hparams):
 
     # Invert preemphasis
     if hparams.preemphasize:
-        wav = _inv_preemphasis(wav, hparams)
+        wav = inv_preemphasis(wav, hparams.preemphasis)
 
     return wav
 
-def _preemphasis(wav, hparams):
+def preemphasis(wav, k, preemphasize=True):
     # Amplifies high frequency content in a waveform.
-    wav = signal.lfilter([1, -hparams.preemphasis], [1], wav)
+    if preemphasize:
+        wav = signal.lfilter([1, -k], [1], wav)
     return wav
 
-def _inv_preemphasis(wav, hparams):
+def inv_preemphasis(wav, k, inv_preemphasize=True):
     # Inverts the preemphasis filter.
-    wav = signal.lfilter([1], [1, -hparams.preemphasis], wav)
+    if inv_preemphasize:
+        wav = signal.lfilter([1], [1, -k], wav)
     return wav
 
 def _build_mel_basis(hparams):
