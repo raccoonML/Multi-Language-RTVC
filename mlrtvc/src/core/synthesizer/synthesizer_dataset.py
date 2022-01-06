@@ -66,12 +66,8 @@ def collate_synthesizer(batch, r, hparams):
     if max_spec_len % r != 0:
         max_spec_len += r - max_spec_len % r
 
-    # WaveRNN mel spectrograms are normalized to [0, 1] so zero padding adds silence
-    # By default, SV2TTS uses symmetric mels, where -1*max_abs_value is silence.
-    if hparams.symmetric_mels:
-        mel_pad_value = -1 * hparams.max_abs_value
-    else:
-        mel_pad_value = 0
+    # Hifigan mels are constructed with a floor of ln(1e-5) which represents silence.
+    mel_pad_value = np.log(1e-5)
 
     mel = [pad2d(x[1], max_spec_len, pad_value=mel_pad_value) for x in batch]
     mel = np.stack(mel)
